@@ -228,17 +228,13 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	function getObjects($data=''){
 		$sql['column']='tx_geosearch_objects.*';
 		$sql['table']='tx_geosearch_objects';
-		$sql['where']='';
+		$sql['where']='tx_geosearch_objects.pid='.intval($this->arrConf['pid']);
 		if($data){
-			$res=$this->getNearestObjects($data,$sql);
+			$this->objects=$this->getNearestObjects($data,$sql);
 		} else{
-			$res=$this->getZipObjects($sql);
+			$this->objects=$this->getZipObjects($sql);
 		}
-		if($GLOBALS['TYPO3_DB']->sql_num_rows($res)>0){
-			while($row=$GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
-				$this->objects[]=$row;					
-			}
-		} else{
+		if(empty($this->objects)){
 			$this->objects=$this->pi_getLL('errorObjects');
 		}
 		return $this->objects;		
@@ -254,6 +250,8 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	 */
 	
 	function getNearestObjects($data,$sql){
+		$GLOBALS['TYPO3_DB']->store_lastBuiltQuery = true;
+
 		$radius = $GLOBALS['TYPO3_DB']->fullQuoteStr($this->piVars['radius'], 'tx_geosearch_objects');
 		
 		$laenge=$data['longitude'] / 180 * M_PI; // Umrechnung von GRAD IN RAD
@@ -263,10 +261,10 @@ class tx_geosearch_pi1 extends tslib_pibase {
    			$earthRadius=$earthRadius/1.609;
    		}
 		$sql['sorting']='distance';
-		$res=$GLOBALS['TYPO3_DB']->exec_SELECTquery(
+		$res=$GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 			$sql['column'].',ROUND('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(lat))*cos('.$breite.')*(sin(RADIANS(lng))*sin('.$laenge.')+cos(RADIANS(lng))*cos('.$laenge.'))-sin(RADIANS(lat))*sin('.$breite.'))),1) AS distance',
 			$sql['table'],
-			'tx_geosearch_objects.pid='.intval($this->arrConf['pid']).$this->cObj->enableFields('tx_geosearch_objects').$sql['where'].' AND ('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(lat))*cos('.$breite.')*(sin(RADIANS(lng))*sin('.$laenge.')+cos(RADIANS(lng))*cos('.$laenge.'))-sin(RADIANS(lat))*sin('.$breite.')))) <'.$radius,
+			$sql['where'].' AND tx_geosearch_objects.deleted=0 AND tx_geosearch_objects.hidden=0 AND ('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(lat))*cos('.$breite.')*(sin(RADIANS(lng))*sin('.$laenge.')+cos(RADIANS(lng))*cos('.$laenge.'))-sin(RADIANS(lat))*sin('.$breite.')))) <'.$radius,
 			'',
 			$sql['sorting']
 		);
@@ -285,10 +283,10 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	    $postcode = $GLOBALS['TYPO3_DB']->escapeStrForLike($GLOBALS['TYPO3_DB']->quoteStr($this->piVars['postcode'], 'tx_geosearch_objects'),'tx_geosearch_objects');
 	    $country = $GLOBALS['TYPO3_DB']->fullQuoteStr($this->piVars['country'], 'tx_geosearch_objects');		
 		$sql['sorting']='postcode';
-		$query=$GLOBALS['TYPO3_DB']->exec_SELECTquery(
+		$query=$GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
 			$sql['column'],
 			$sql['table'],
-			'tx_geosearch_objects.pid='.intval($this->arrConf['pid']).$this->cObj->enableFields('tx_geosearch_objects').$sql['where'].' AND country IN(SELECT uid from static_countries WHERE '.$this->conf['countryname'].'='.$country.') AND postcode LIKE "'.$postcode.'%"',
+			$sql['where'].' AND tx_geosearch_objects.deleted=0 AND tx_geosearch_objects.hidden=0 AND country IN(SELECT uid from static_countries WHERE '.$this->conf['countryname'].'='.$country.') AND postcode LIKE "'.$postcode.'%"',
 			'',
 			$sql['sorting']
 		);
