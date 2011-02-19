@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>database</type>
+		<description>Language labels for database tables/fields belonging to extension 'geosearch'</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="tx_geosearch_objects">Objects</label>
+			<label index="tx_geosearch_objects.name">Name</label>
+			<label index="tx_geosearch_objects.street">Street</label>
+			<label index="tx_geosearch_objects.postcode">Postalcode</label>
+			<label index="tx_geosearch_objects.city">City</label>
+			<label index="tx_geosearch_objects.country">Country</label>
+			<label index="tx_geosearch_objects.telephone">Telephone</label>
+			<label index="tx_geosearch_objects.mobile">Mobile</label>
+			<label index="tx_geosearch_objects.fax">Fax</label>
+			<label index="tx_geosearch_objects.email">Email</label>
+			<label index="tx_geosearch_objects.www">Website</label>
+			<label index="tx_geosearch_objects.lat">Latitude</label>
+			<label index="tx_geosearch_objects.lng">Longitude</label>
+			<label index="tt_content.list_type_pi1">Search in Proximity</label>		
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="tx_geosearch_objects">Objekte</label>
+			<label index="tx_geosearch_objects.name">Name</label>
+			<label index="tx_geosearch_objects.street">Strasse</label>
+			<label index="tx_geosearch_objects.postcode">Postleitzahl</label>
+			<label index="tx_geosearch_objects.city">Stadt</label>
+			<label index="tx_geosearch_objects.country">Land</label>
+			<label index="tx_geosearch_objects.telephone">Telefon</label>
+			<label index="tx_geosearch_objects.mobile">Mobil</label>
+			<label index="tx_geosearch_objects.fax">Fax</label>
+			<label index="tx_geosearch_objects.email">Email</label>
+			<label index="tx_geosearch_objects.www">Website</label>
+			<label index="tx_geosearch_objects.lat">Breitengrad</label>
+			<label index="tx_geosearch_objects.lng">Laengengrad</label>
+			<label index="tt_content.list_type_pi1">Umkreissuche</label>	
+		</languageKey>
+	</data>
+</T3locallang>

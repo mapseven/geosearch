@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3locallang>
+	<meta type="array">
+		<type>module</type>
+		<description>Language labels for plugin &quot;tx_geosearch_pi1&quot;</description>
+	</meta>
+	<data type="array">
+		<languageKey index="default" type="array">
+			<label index="street">Street: </label>
+			<label index="postalcode">Postalcode: </label>
+			<label index="country">Country: </label>
+			<label index="radius">Radius: </label>
+			<label index="km">km</label>
+			<label index="miles">miles</label>
+			<label index="submit_button_label">Search</label>
+			<label index="errorPostalcode_invalid">Please type in a complete Postalcode.</label>
+			<label index="errorPostalcode">Please check your Postalcode.</label>
+			<label index="errorObjects">No Objects found.</label>
+			<label index="errorCategory">Your Postalcode is not complete. Please tyype in a complete one</label>
+			<label index="numbersOfHits">There are %s hits</label>
+			<label index="numberOfHits">There is %s hit</label>
+			<label index="show">Show %s to %s</label>
+			<label index="name">Name: </label>
+			<label index="city">City: </label>
+			<label index="telephone">Phone.:</label>
+			<label index="fax">Fax:</label>
+			<label index="mobile">Mobile: </label>
+			<label index="email">Email: </label>
+			<label index="www">Website: </label>
+			<label index="misc">Misc: </label>
+		</languageKey>
+		<languageKey index="de" type="array">
+			<label index="street">Straße: </label>
+			<label index="postalcode">PLZ: </label>
+			<label index="country">Land: </label>
+			<label index="radius">Radius: </label>
+			<label index="km">km</label>
+			<label index="miles">Meilen</label>
+			<label index="submit_button_label">Suche</label>
+			<label index="errorPostalcode_invalid">Bitte geben Sie ihre komplette Postleitzahl ein.</label>
+			<label index="errorPostalcode">Zu Ihrer Postleitzahl wurde leider nichts gefunden.</label>
+			<label index="errorObjects">In Ihrem Suchbereich wurden keine Objekte gefunden</label>
+			<label index="errorCategory">Bitte wählen Sie eine Kategorie</label>
+			<label index="numbersOfHits">Es wurden %s Objekte gefunden</label>
+			<label index="numberOfHits">Es wurde %s Objekt gefunden</label>
+			<label index="show">Zeige %s bis %s</label>
+			<label index="name">Name: </label>
+			<label index="city">Stadt: </label>
+			<label index="telephone">Tel.:</label>
+			<label index="fax">Fax:</label>
+			<label index="mobile">Mobil: </label>
+			<label index="email">Email: </label>
+			<label index="www">Website: </label>
+			<label index="misc">Sonstiges: </label>
+		</languageKey>
+	</data>
+</T3locallang>

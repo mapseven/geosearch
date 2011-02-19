@@ -1,0 +1,12 @@
+.tx-geosearch-pi1-fieldset { margin:0px 0px 10px 0px; padding:0px; border:0px; }
+.tx-geosearch-pi1-label { width:80px; float:left; }
+.tx-geosearch-pi1-input { margin:0px 5px 5px 0px; width:100px; border:1px solid #000000; }
+.tx-geosearch-pi1-button { margin-left:80px; }
+  
+.tx-geosearch-pi1-list-found { margin-bottom:10px; font-weight:bold; }
+.tx-geosearch-pi1-list-show { margin-bottom:20px; }
+.tx-geosearch-pi1-list-distance { width:80px; float:left; }
+.tx-geosearch-pi1-list-address { margin:0px 0px 10px 80px; }
+.tx-geosearch-pi1-list-prev { margin-left:80px; width:30px; float:left; margin-bottom:10px; font-weight:bold; }
+.tx-geosearch-pi1-list-browse { width:20px; float:left; margin-bottom:10px; font-weight:bold; }
+.tx-geosearch-pi1-list-next { margin-bottom:10px; font-weight:bold;}

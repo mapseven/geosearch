@@ -1,0 +1,6 @@
+plugin.tx_geosearch_pi1 {
+  templateFile = {$plugin.tx_geosearch_pi1.templateFile}
+  cssFile = {$plugin.tx_geosearch_pi1.cssFile}
+  countries = {$plugin.tx_geosearch_pi1.countries}
+  countryname = {$plugin.tx_geosearch_pi1.countryname}
+}

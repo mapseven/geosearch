@@ -1,0 +1,90 @@
+<!-- ###GEOSEARCH### begin -->
+
+<!-- ###GEOSEARCH_FORM### begin -->
+    <form id="tx-geosearch-pi1" method="POST" action="###URL###">
+        <fieldset class="tx-geosearch-pi1-fieldset">
+				<label for="###FORM_INPUT_ZIPCODE_NAME###" class="tx-geosearch-pi1-label">###FORM_INPUT_ZIPCODE_LABEL###</label>
+                <input class="tx-geosearch-pi1-input" type="text" name="###FORM_INPUT_ZIPCODE_NAME###" id="###FORM_INPUT_ZIPCODE_NAME###" size="10" value="###VALUE_ZIPCODE###" /><br />
+
+                <label for="###FORM_INPUT_RADIUS_NAME###" class="tx-geosearch-pi1-label">###FORM_INPUT_RADIUS_LABEL###</label>
+                <input class="tx-geosearch-pi1-input" type="text" name="###FORM_INPUT_RADIUS_NAME###" id="###FORM_INPUT_RADIUS_NAME###" size="10" value="###VALUE_RADIUS###" />###UNIT###<br />
+
+                <!-- ###COUNTRY### begin-->
+                <label for="###FORM_SELECT_COUNTRY_NAME###" class="tx-geosearch-pi1-label">###FORM_SELECT_COUNTRY_LABEL###</label>
+                <select class="tx-geosearch-pi1-input" name="###FORM_SELECT_COUNTRY_NAME###" size="1" id="###FORM_SELECT_COUNTRY_NAME###">
+                	<!-- ###COUNTRY_OPTIONS### begin-->
+                    <option value="###FORM_OPTION_COUNTRY_VALUE###" ###SELECTED###>###FORM_OPTION_COUNTRY_NAME###</option>
+                	<!-- ###COUNTRY_OPTIONS### end-->
+                </select><br />
+                <!-- ###COUNTRY### end-->
+                <!-- ###COUNTRY_HIDDEN### begin-->
+                <input type="hidden" name="###FORM_HIDDEN_COUNTRY_NAME###" id="###FORM_HIDDEN_COUNTRY_NAME###" value="###FORM_HIDDEN_COUNTRY_VALUE###" />
+                <!-- ###COUNTRY_HIDDEN### end-->
+				
+				<input type="submit" name="###FORM_SUBMIT_NAME###" id="###FORM_SUBMIT_NAME###" value="###FORM_SUBMIT_VALUE###" class="tx-geosearch-pi1-button"/>
+         </fieldset>
+    </form>
+<!-- ###GEOSEARCH_FORM### end -->
+
+
+
+<!-- ###GEOSEARCH_LIST### begin-->
+<div class="tx-geosearch-pi1-list">	
+	<!-- ###GEOSEARCH_FOUND### begin-->
+	<div class="tx-geosearch-pi1-list-found">###NUMBER_OF_HITS###</div>
+	<!-- ###GEOSEARCH_FOUND### end-->
+	
+	<!-- ###GEOSEARCH_SHOW### begin-->
+	<div class="tx-geosearch-pi1-list-show">###SHOW###</div>
+	<!-- ###GEOSEARCH_SHOW### end-->
+	<!-- ###GEOSEARCH_CONTENT### begin-->
+	  <!-- ###GEOSEARCH_DISTANCE### begin-->
+	  <div class="tx-geosearch-pi1-list-distance">###DISTANCE###</div>  
+	  <!-- ###GEOSEARCH_DISTANCE### end-->
+	  <div class="tx-geosearch-pi1-list-address">
+	  		<!-- ###GEOSEARCH_NAME### begin-->
+	  		###NAME_LABEL### <strong>###ADDRESS_NAME###</strong><br />
+	  		<!-- ###GEOSEARCH_NAME### end-->
+			<!-- ###GEOSEARCH_STREET### begin-->
+	  		###STREET_LABEL### ###ADDRESS_STREET###<br />
+	  		<!-- ###GEOSEARCH_STREET### end-->
+	  		<!-- ###GEOSEARCH_CITY### begin-->
+			###CITY_LABEL### ###ADDRESS_POSTCODE### ###ADDRESS_CITY###<br />
+			<!-- ###GEOSEARCH_CITY### end-->
+			<!-- ###GEOSEARCH_COUNTRY### begin-->
+			###COUNTRY_LABEL### ###ADDRESS_COUNTRY###<br />
+			<!-- ###GEOSEARCH_COUNTRY### end-->
+			<!-- ###GEOSEARCH_TELEPHONE### begin-->
+			###TELEPHONE_LABEL### ###ADDRESS_TELEPHONE###<br />
+			<!-- ###GEOSEARCH_TELEPHONE### end-->
+			<!-- ###GEOSEARCH_MOBILE### begin-->
+			###MOBILE_LABEL### ###ADDRESS_MOBILE###<br />
+			<!-- ###GEOSEARCH_MOBILE### end-->
+			<!-- ###GEOSEARCH_FAX### begin-->
+			###FAX_LABEL### ###ADDRESS_FAX###<br />
+			<!-- ###GEOSEARCH_FAX### end-->
+			<!-- ###GEOSEARCH_EMAIL### begin-->
+			###EMAIL_LABEL### <a href="mailto:###ADDRESS_EMAIL###">###ADDRESS_EMAIL###</a><br />
+			<!-- ###GEOSEARCH_EMAIL### end-->
+			<!-- ###GEOSEARCH_WWW### begin-->
+			###WWW_LABEL### <a href="http://###ADDRESS_WWW###" target="_blank">###ADDRESS_WWW###</a>
+			<!-- ###GEOSEARCH_WWW### end-->
+	  </div>
+	<!-- ###GEOSEARCH_CONTENT### end -->
+	
+	<!-- ###GEOSEARCH_NAVIGATION### begin -->
+		<!-- ###GEOSEARCH_PREV### begin -->
+			<div class="tx-geosearch-pi1-list-prev">###PREV_LINK###</div>
+		<!-- ###GEOSEARCH_PREV### end -->
+		
+		<!-- ###GEOSEARCH_BROWSE### begin -->
+			<!-- ###GEOSEARCH_BROWSE1### begin --><div class="tx-geosearch-pi1-list-browse">###BROWSE_LINK###</div><!-- ###GEOSEARCH_BROWSE2### end -->
+		<!-- ###GEOSEARCH_BROWSE### end -->
+		
+		<!-- ###GEOSEARCH_NEXT### begin -->
+			<div class="tx-geosearch-pi1-list-next">###NEXT_LINK###</div>
+		<!-- ###GEOSEARCH_NEXT### end -->
+	<!-- ###GEOSEARCH_NAVIGATION### end -->
+</div>	
+<!-- ###GEOSEARCH_LIST### end -->
+<!-- ###GEOSEARCH### end -->
