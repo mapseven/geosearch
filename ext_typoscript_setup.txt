@@ -1,6 +1,10 @@
 plugin.tx_geosearch_pi1 {
   templateFile = {$plugin.tx_geosearch_pi1.templateFile}
   cssFile = {$plugin.tx_geosearch_pi1.cssFile}
+  startingPoint = {$plugin.tx_geosearch_pi1.startingPoint}
+  zipComplete = {$plugin.tx_geosearch_pi1.zipComplete}
+  maxRadius = {$plugin.tx_geosearch_pi1.maxRadius}
+  limit = {$plugin.tx_geosearch_pi1.limit}
   countries = {$plugin.tx_geosearch_pi1.countries}
   countryname = {$plugin.tx_geosearch_pi1.countryname}
 }

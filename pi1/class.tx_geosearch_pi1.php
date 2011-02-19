@@ -95,10 +95,10 @@ class tx_geosearch_pi1 extends tslib_pibase {
 		$this->arrConf['cssFile']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'css_file', 'sGeneral')?$this->extFolder.$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'css_file', 'sGeneral') : $this->conf['cssFile'];
 		$GLOBALS['TSFE']->additionalHeaderData[] = '<link href="'.$this->arrConf['cssFile'].'" rel="stylesheet" type="text/css" />';
 		
-		$this->arrConf['pid']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'startingpoint', 'sGeneral')?$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'startingpoint', 'sGeneral'):$GLOBALS['TSFE']->id;
-		$this->arrConf['limit']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'limit', 'sList');
+		$this->arrConf['pid']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'startingpoint', 'sGeneral')?$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'startingpoint', 'sGeneral'):$this->conf['startingPoint']?$this->conf['startingPoint']:$GLOBALS['TSFE']->id;
+		$this->arrConf['limit']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'limit', 'sList')?$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'limit', 'sList'):$this->conf['limit'];
 
-		$this->arrConf['zipComplete']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'zipComplete', 'sForm');
+		$this->arrConf['zipComplete']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'zipComplete', 'sForm')?$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'zipComplete', 'sForm'):$this->conf['zipComplete'];
 		$countries=explode(',',$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'countries', 'sForm')?$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'countries', 'sForm'):$this->conf['countries']);
 		if(is_array($countries)){
 			foreach($countries as $item){
@@ -106,7 +106,7 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	        	$this->arrConf['countries'][$row[$this->arrConf['datasource']['countryname']]]=$row['cn_short_local'];
 	        }		
 		}   
-		$this->arrConf['maxRadius']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'maxRadius', 'sForm');
+		$this->arrConf['maxRadius']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'maxRadius', 'sForm')?$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'maxRadius', 'sForm'):$this->conf['maxRadius'];
 		$this->arrConf['unit']=$this->pi_getFFvalue($this->cObj->data['pi_flexform'], 'unit', 'sForm');
 		if($this->piVars['submit_button']){
 		    unset($this->piVars['first']);

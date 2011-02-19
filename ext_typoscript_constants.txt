@@ -1,6 +1,10 @@
 plugin.tx_geosearch_pi1 {
   templateFile = EXT:geosearch/res/geosearch.html
   cssFile = typo3conf/ext/geosearch/res/geosearch.css
+  startingPoint =
+  zipComplete= 1
+  maxRadius =
+  limit =
   countries = 54
   countryname = cn_iso_2
 }
