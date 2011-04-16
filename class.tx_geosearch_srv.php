@@ -32,8 +32,10 @@ class tx_geosearch_srv extends tslib_pibase {
     	if(t3lib_div::_GET('lat') && t3lib_div::_GET('lng') && t3lib_div::_GET('radius')){
     		$geo = t3lib_div::makeInstance('tx_geosearch_pi1');
 			$sql['column'] = 'tx_geosearch_objects.*';
-			$sql['table'] = 'tx_geosearch_objects';
-			$sql['where'] = '1=1';
+			$sql['table']='tx_geosearch_objects,tx_geosearch_coordinates';
+		    $sql['where']='tx_geosearch_objects.postcode=tx_geosearch_coordinates.postal_code';
+			$sql['groupBy']='tx_geosearch_objects.uid';
+		
 			$data['longitude'] = t3lib_div::_GET('lng');
 			$data['latitude'] = t3lib_div::_GET('lat');
 			$geo->piVars['radius']=t3lib_div::_GET('radius');

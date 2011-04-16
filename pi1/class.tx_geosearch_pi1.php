@@ -227,8 +227,9 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	
 	function getObjects($data=''){
 		$sql['column']='tx_geosearch_objects.*';
-		$sql['table']='tx_geosearch_objects';
-		$sql['where']='tx_geosearch_objects.pid='.intval($this->arrConf['pid']);
+		$sql['table']='tx_geosearch_objects,tx_geosearch_coordinates';
+		$sql['where']='tx_geosearch_objects.postcode=tx_geosearch_coordinates.postal_code AND tx_geosearch_coordinates.country_code='.$GLOBALS['TYPO3_DB']->fullQuoteStr($this->piVars['country'], 'tx_geosearch_coordinates').' AND tx_geosearch_objects.pid='.intval($this->arrConf['pid']);
+		$sql['groupBy']='tx_geosearch_objects.uid';
 		if($data){
 			$this->objects=$this->getNearestObjects($data,$sql);
 		} else{
@@ -262,10 +263,10 @@ class tx_geosearch_pi1 extends tslib_pibase {
    		}
 		$sql['sorting']='distance';
 		$res=$GLOBALS['TYPO3_DB']->exec_SELECTgetRows(
-			$sql['column'].',ROUND('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(lat))*cos('.$breite.')*(sin(RADIANS(lng))*sin('.$laenge.')+cos(RADIANS(lng))*cos('.$laenge.'))-sin(RADIANS(lat))*sin('.$breite.'))),1) AS distance',
+			$sql['column'].',ROUND('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(latitude))*cos('.$breite.')*(sin(RADIANS(longitude))*sin('.$laenge.')+cos(RADIANS(longitude))*cos('.$laenge.'))-sin(RADIANS(latitude))*sin('.$breite.'))),1) AS distance',
 			$sql['table'],
-			$sql['where'].' AND tx_geosearch_objects.deleted=0 AND tx_geosearch_objects.hidden=0 AND ('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(lat))*cos('.$breite.')*(sin(RADIANS(lng))*sin('.$laenge.')+cos(RADIANS(lng))*cos('.$laenge.'))-sin(RADIANS(lat))*sin('.$breite.')))) <'.$radius,
-			'',
+			$sql['where'].' AND tx_geosearch_objects.deleted=0 AND tx_geosearch_objects.hidden=0 AND ('.$earthRadius.'*SQRT(2*(1-cos(RADIANS(latitude))*cos('.$breite.')*(sin(RADIANS(longitude))*sin('.$laenge.')+cos(RADIANS(longitude))*cos('.$laenge.'))-sin(RADIANS(latitude))*sin('.$breite.')))) <'.$radius,
+			$sql['groupBy'],
 			$sql['sorting']
 		);
 		return $res;
@@ -287,7 +288,7 @@ class tx_geosearch_pi1 extends tslib_pibase {
 			$sql['column'],
 			$sql['table'],
 			$sql['where'].' AND tx_geosearch_objects.deleted=0 AND tx_geosearch_objects.hidden=0 AND country IN(SELECT uid from static_countries WHERE '.$this->conf['countryname'].'='.$country.') AND postcode LIKE "'.$postcode.'%"',
-			'',
+			$sql['groupBy'],
 			$sql['sorting']
 		);
 		return $query;

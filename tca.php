@@ -5,7 +5,7 @@ if (!defined ('TYPO3_MODE')) 	die ('Access denied.');
 $TCA["tx_geosearch_objects"] = array (
 	"ctrl" => $TCA["tx_geosearch_objects"]["ctrl"],
 	"interface" => array (
-		"showRecordFieldList" => "hidden,name,street,postcode,city,country,telephone,mobile,fax,email,www,lat,lng"
+		"showRecordFieldList" => "hidden,name,street,postcode,city,country,telephone,mobile,fax,email,www"
 	),
 	"feInterface" => $TCA["tx_geosearch_objects"]["feInterface"],
 	"columns" => array (
@@ -123,29 +123,9 @@ $TCA["tx_geosearch_objects"] = array (
 				"eval" => "trim",
 			)
 		),
-		"lat" => Array (		
-			"exclude" => 1,		
-			"label" => "LLL:EXT:geosearch/locallang_db.xml:tx_geosearch_objects.lat",		
-			"config" => Array (
-				"type" => "input",	
-				"size" => "30",	
-				"max" => "30",	
-				"eval" => "trim",
-			)
-		),
-		"lng" => Array (		
-			"exclude" => 1,		
-			"label" => "LLL:EXT:geosearch/locallang_db.xml:tx_geosearch_objects.lng",		
-			"config" => Array (
-				"type" => "input",	
-				"size" => "30",	
-				"max" => "30",	
-				"eval" => "trim",
-			)
-		),
 	),
 	"types" => array (
-		"0" => array("showitem" => "hidden, name, street, postcode, city, country, telephone, mobile, fax, email, www, lat, lng")
+		"0" => array("showitem" => "hidden, name, street, postcode, city, country, telephone, mobile, fax, email, www")
 	),
 	"palettes" => array (
 		"1" => array("showitem" => "")

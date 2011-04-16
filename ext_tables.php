@@ -23,7 +23,7 @@ $TCA["tx_geosearch_objects"] = array (
 		'iconfile'          => t3lib_extMgm::extRelPath($_EXTKEY).'icon_tx_geosearch_objects.gif',
 	),
 	"feInterface" => array (
-		"fe_admin_fieldList" => "hidden, name, street, postcode, city, country, telephone, mobile, fax, email, www, lat, lng",
+		"fe_admin_fieldList" => "hidden, name, street, postcode, city, country, telephone, mobile, fax, email, www",
 	)
 );
 

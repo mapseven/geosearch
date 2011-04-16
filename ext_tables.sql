@@ -20,8 +20,6 @@ CREATE TABLE tx_geosearch_objects (
 	fax varchar(30) DEFAULT '' NOT NULL,
 	email varchar(80) DEFAULT '' NOT NULL,
 	www varchar(80) DEFAULT '' NOT NULL,
-	lat varchar(30) DEFAULT '' NOT NULL,
-	lng varchar(30) DEFAULT '' NOT NULL,
 	
 	PRIMARY KEY (uid),
 	KEY parent (pid)
