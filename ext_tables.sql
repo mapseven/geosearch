@@ -40,6 +40,7 @@ CREATE TABLE tx_geosearch_coordinates (
 	admin_code3 varchar(20) DEFAULT '' NOT NULL,
 	latitude varchar(30) DEFAULT '' NOT NULL,
 	longitude varchar(30) DEFAULT '' NOT NULL,
+	accuracy int(1) DEFAULT '0' NOT NULL,
 	
 	KEY country_code (country_code),
 	KEY postal_code (postal_code)
