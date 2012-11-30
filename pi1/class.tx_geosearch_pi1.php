@@ -148,7 +148,7 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	 */
 	
 	function listObjects(){
-		$this->piVars['radius']=$this->arrConf['maxRadius']?t3lib_div::intInRange($this->piVars['radius'],1,$this->arrConf['maxRadius']):$this->piVars['radius'];
+		$this->piVars['radius']=$this->arrConf['maxRadius']?t3lib_utility_Math::forceIntegerInRange($this->piVars['radius'],1,$this->arrConf['maxRadius']):$this->piVars['radius'];
 		
 		if($this->arrConf['zipComplete']){
 			if($this->validateZip()){
