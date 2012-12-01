@@ -71,7 +71,6 @@ class tx_geosearch_pi1 extends tslib_pibase {
   		$this->pi_USER_INT_obj = 1;
 
 		$this->setConfig();	
-		$this->checkObjectsData();
 	}
 	
 	
@@ -112,37 +111,8 @@ class tx_geosearch_pi1 extends tslib_pibase {
 		    unset($this->piVars['first']);
 		}
 	}
-	
-	/**
-	 * Checks if the coordinates are already stored in database, else get the coordinates for the objects 
-	 *
-	 */
-	
-	function checkObjectsData(){
-		$res=$GLOBALS['TYPO3_DB']->exec_SELECTquery(
-				'*',
-				'tx_geosearch_objects',
-				'pid='.intval($this->arrConf['pid']).' AND (lat=\'\' OR lng=\'\')'.$this->cObj->enableFields('tx_geosearch_objects')
-		);
-		if($GLOBALS['TYPO3_DB']->sql_num_rows($res)>0){
-			while($row=$GLOBALS['TYPO3_DB']->sql_fetch_assoc($res)){
-				$this->piVars['postcode']=$row['postcode'];
-        		
-        		$countryname=$this->pi_getRecord('static_countries',$row['country']);
-				$this->piVars['country']=$countryname[$this->arrConf['datasource']['countryname']];
-				$coords=$this->getCoordinates();
-				$update=array(
-					'lat'=>$coords['latitude'],
-					'lng'=>$coords['longitude'],
-				);
-				$GLOBALS['TYPO3_DB']->exec_UPDATEquery('tx_geosearch_objects','uid='.intval($row['uid']),$update);					
-			}
-			unset($this->piVars['postcode']);
-		}
-	}
-	
-	
-	
+
+
 	/**
 	 * Lists the fitting objects from the given postcode,radius and country
 	 */
