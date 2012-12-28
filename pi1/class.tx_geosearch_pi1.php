@@ -121,29 +121,32 @@ class tx_geosearch_pi1 extends tslib_pibase {
 			if ($this->validateZip()) {
 				$coords = $this->getCoordinates();
 				if (is_array($coords)) {
-					$this->getObjects($coords);
+					$objects = $this->getObjects($coords);
 				} else {
-					$content = $this->pi_getLL('errorPostalcode');
+					$error = 'errorPostalcode';
 				}
 			} else {
-				$content = $this->pi_getLL('errorPostalcode_invalid');
+				$error = 'errorPostalcode_invalid';
 			}
 		} else {
 			if ($this->validateZip()) {
 				$coords = $this->getCoordinates();
 				if (is_array($coords)) {
-					$this->getObjects($coords);
+					$objects = $this->getObjects($coords);
 				} else {
-					$content = $this->pi_getLL('errorPostalcode');
+					$error = 'errorPostalcode';
 				}
 			} else {
-				$this->getObjects();
+				$objects = $this->getObjects();
 			}
 		}
-		if (is_array($this->objects)) {
-			$content = $this->getList();
+		if (isset($objects) && !empty($objects)) {
+			$content = $this->getList($objects);
 		} else {
-			$content = $content ? $content : $this->pi_getLL('errorObjects');
+			if (!isset($error)) {
+				$error = 'errorObjects';
+			}
+			$content = $this->getError($error);
 		}
 		return $content;
 	}
@@ -195,14 +198,11 @@ class tx_geosearch_pi1 extends tslib_pibase {
 		$sql['where'] = 'tx_geosearch_objects.postcode = tx_geosearch_coordinates.postal_code AND tx_geosearch_coordinates.country_code = ' . $GLOBALS['TYPO3_DB']->fullQuoteStr($this->piVars['country'], 'tx_geosearch_coordinates') . ' AND tx_geosearch_objects.pid = ' . intval($this->arrConf['pid']);
 		$sql['groupBy'] = 'tx_geosearch_objects.uid';
 		if ($data) {
-			$this->objects = $this->getNearestObjects($data, $sql);
+			$objects = $this->getNearestObjects($data, $sql);
 		} else {
-			$this->objects = $this->getZipObjects($sql);
+			$objects = $this->getZipObjects($sql);
 		}
-		if (empty($this->objects)) {
-			$this->objects = $this->pi_getLL('errorObjects');
-		}
-		return $this->objects;
+		return $objects;
 	}
 
 
@@ -322,9 +322,10 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	/**
 	 * Builds the object listing
 	 *
+	 * @param array $objects
 	 * @return string
 	 */
-	function getList() {
+	function getList($objects) {
 		//Get the parts out of the template
 		$t['total'] = $this->cObj->getSubpart($this->arrConf['templateCode'], '###GEOSEARCH_LIST###');
 
@@ -334,23 +335,23 @@ class tx_geosearch_pi1 extends tslib_pibase {
 		$t['navigation'] = $this->cObj->getSubpart($t['total'], '###GEOSEARCH_NAVIGATION###');
 		$this->contentCode = $t['content'];
 		$first = $this->piVars['first'] ? $this->piVars['first'] : 0;
-		$last = $this->arrConf['limit'] && $this->arrConf['limit'] < count($this->objects) && $first + $this->arrConf['limit'] < count($this->objects) ? $first + $this->arrConf['limit'] : count($this->objects);
+		$last = $this->arrConf['limit'] && $this->arrConf['limit'] < count($objects) && $first + $this->arrConf['limit'] < count($objects) ? $first + $this->arrConf['limit'] : count($objects);
 
-		$markerArray['###NUMBER_OF_HITS###'] = count($this->objects) > 1 ? sprintf(htmlspecialchars($this->pi_getLL('numbersOfHits')), count($this->objects)) : sprintf(htmlspecialchars($this->pi_getLL('numberOfHits')), count($this->objects));
+		$markerArray['###NUMBER_OF_HITS###'] = count($objects) > 1 ? sprintf(htmlspecialchars($this->pi_getLL('numbersOfHits')), count($objects)) : sprintf(htmlspecialchars($this->pi_getLL('numberOfHits')), count($objects));
 		$markerArray['###SHOW###'] = sprintf(htmlspecialchars($this->pi_getLL('show')), $first + 1, $last);
 
 		$address = '';
 		for($i = $first; $i < $last; $i++){
-			$subpartArray['###GEOSEARCH_DISTANCE###'] = $this->getMarker($i, 'distance', 'unit', 4);
-			$subpartArray['###GEOSEARCH_NAME###'] = $this->getMarker($i,'name', 'name', 1);
-			$subpartArray['###GEOSEARCH_STREET###'] = $this->getMarker($i, 'street', 'street', 1);
-			$subpartArray['###GEOSEARCH_CITY###'] = $this->getMarker($i, 'postcode, city', 'city', 2);
-			$subpartArray['###GEOSEARCH_COUNTRY###'] = $this->getMarker($i, 'country', 'country', 3);
-			$subpartArray['###GEOSEARCH_TELEPHONE###'] = $this->getMarker($i, 'telephone', 'telephone', 1);
-			$subpartArray['###GEOSEARCH_MOBILE###'] = $this->getMarker($i, 'mobile', 'mobile', 1);
-			$subpartArray['###GEOSEARCH_FAX###'] = $this->getMarker($i, 'fax', 'fax', 1);
-			$subpartArray['###GEOSEARCH_EMAIL###'] = $this->getMarker($i, 'email', 'email', 1);
-			$subpartArray['###GEOSEARCH_WWW###'] = $this->getMarker($i, 'www', 'www', 1);
+			$subpartArray['###GEOSEARCH_DISTANCE###'] = $this->getMarker($objects, $i, 'distance', 'unit', 4);
+			$subpartArray['###GEOSEARCH_NAME###'] = $this->getMarker($objects, $i,'name', 'name', 1);
+			$subpartArray['###GEOSEARCH_STREET###'] = $this->getMarker($objects, $i, 'street', 'street', 1);
+			$subpartArray['###GEOSEARCH_CITY###'] = $this->getMarker($objects, $i, 'postcode, city', 'city', 2);
+			$subpartArray['###GEOSEARCH_COUNTRY###'] = $this->getMarker($objects, $i, 'country', 'country', 3);
+			$subpartArray['###GEOSEARCH_TELEPHONE###'] = $this->getMarker($objects, $i, 'telephone', 'telephone', 1);
+			$subpartArray['###GEOSEARCH_MOBILE###'] = $this->getMarker($objects, $i, 'mobile', 'mobile', 1);
+			$subpartArray['###GEOSEARCH_FAX###'] = $this->getMarker($objects, $i, 'fax', 'fax', 1);
+			$subpartArray['###GEOSEARCH_EMAIL###'] = $this->getMarker($objects, $i, 'email', 'email', 1);
+			$subpartArray['###GEOSEARCH_WWW###'] = $this->getMarker($objects, $i, 'www', 'www', 1);
 
 			$address .= $this->cObj->substituteMarkerArrayCached($t['content'], $markerArray, $subpartArray);
 		}
@@ -358,7 +359,7 @@ class tx_geosearch_pi1 extends tslib_pibase {
 		$subpartArray['###GEOSEARCH_FOUND###'] = $this->cObj->substituteMarkerArrayCached($t['found'], $markerArray);
 		$subpartArray['###GEOSEARCH_SHOW###'] = $this->cObj->substituteMarkerArrayCached($t['show'], $markerArray);
 		$subpartArray['###GEOSEARCH_CONTENT###'] = $address;
-		$subpartArray['###GEOSEARCH_NAVIGATION###'] = $this->getPageBrowser($t['navigation'], $first, $last);
+		$subpartArray['###GEOSEARCH_NAVIGATION###'] = $this->getPageBrowser($objects, $t['navigation'], $first, $last);
 
 		$content = $this->cObj->substituteMarkerArrayCached($t['total'], $markerArray, $subpartArray);
 
@@ -367,8 +368,26 @@ class tx_geosearch_pi1 extends tslib_pibase {
 
 
 	/**
+	 * Builds the object listing
+	 *
+	 * @param string $error
+	 * @return string
+	 */
+	function getError($error) {
+		//Get the parts out of the template
+		$t['total'] = $this->cObj->getSubpart($this->arrConf['templateCode'], '###GEOSEARCH_ERROR###');
+		$markerArray['###ERROR###'] = $this->pi_getLL($error);
+
+		$content = $this->cObj->substituteMarkerArrayCached($t['total'], $markerArray);
+
+		return $content;
+	}
+
+
+	/**
 	 * Helper function for filling the markers with content
 	 *
+	 * @param array $objects
 	 * @param integer $id
 	 * @param string $value
 	 * @param string $label
@@ -376,19 +395,19 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	 * @param integer $imgId
 	 * @return string
 	 */
-	function getMarker($id, $value, $label, $type, $imgId = 0) {
+	function getMarker($objects, $id, $value, $label, $type, $imgId = 0) {
 		switch ($type) {
 			case 1:
-				if ($this->objects[$id][$value]) {
-					$markerArray['###ADDRESS_' . strtoupper($value) . '###'] = $this->objects[$id][$value];
+				if ($objects[$id][$value]) {
+					$markerArray['###ADDRESS_' . strtoupper($value) . '###'] = $objects[$id][$value];
 					$markerArray['###' . strtoupper($label) . '_LABEL###'] = htmlspecialchars($this->pi_getLL($label));
 				}
 			break;
 			case 2:
-				$valueArr = explode(',', $value);
+				$valueArr = t3lib_div::trimExplode(',', $value);
 				foreach ($valueArr as $item) {
-					if ($this->objects[$id][$item]) {
-						$markerArray['###ADDRESS_' . strtoupper($item) . '###'] = $this->objects[$id][$item];
+					if ($objects[$id][$item]) {
+						$markerArray['###ADDRESS_' . strtoupper($item) . '###'] = $objects[$id][$item];
 					}
 				}
 				if (is_array($markerArray)) {
@@ -397,15 +416,15 @@ class tx_geosearch_pi1 extends tslib_pibase {
 				$value = $label;
 			break;
 			case 3:
-				if ($this->objects[$id]['country']) {
-					$row = $this->pi_getRecord('static_countries', $this->objects[$id]['country']);
+				if ($objects[$id]['country']) {
+					$row = $this->pi_getRecord('static_countries', $objects[$id]['country']);
 					$markerArray['###ADDRESS_' . strtoupper($value) . '###'] = $row['cn_short_local'];
 					$markerArray['###' . strtoupper($label) . '_LABEL###'] = htmlspecialchars($this->pi_getLL($label));
 				}
 			break;
 			case 4:
-				if ($this->objects[$id][$value]) {
-					$markerArray['###' . strtoupper($value) . '###'] = $this->objects[$id][$value] . ' ' . htmlspecialchars($this->pi_getLL($this->arrConf[$label]));
+				if ($objects[$id][$value]) {
+					$markerArray['###' . strtoupper($value) . '###'] = $objects[$id][$value] . ' ' . htmlspecialchars($this->pi_getLL($this->arrConf[$label]));
 				}
 			break;
 		}
@@ -420,19 +439,20 @@ class tx_geosearch_pi1 extends tslib_pibase {
 	/**
 	 * Builds the Pagebrowser
 	 *
+	 * @param array $objects
 	 * @param string $navigation
 	 * @param integer $first
 	 * @param integer $last
 	 * @return string
 	 */
-	function getPageBrowser($navigation, $first, $last) {
+	function getPageBrowser($objects, $navigation, $first, $last) {
 		$t['prev'] = $this->cObj->getSubpart($navigation, '###GEOSEARCH_PREV###');
 		$t['browse'] = $this->cObj->getSubpart($navigation, '###GEOSEARCH_BROWSE###');
 		$t['browse1'] = $this->cObj->getSubpart($navigation, '###GEOSEARCH_BROWSE1###');
 		$t['next'] = $this->cObj->getSubpart($navigation, '###GEOSEARCH_NEXT###');
 		unset($this->piVars['submit_button']);
-		$limit=$this->arrConf['limit'] ? $this->arrConf['limit'] : count($this->objects);
-		$countObjects = count($this->objects);
+		$limit=$this->arrConf['limit'] ? $this->arrConf['limit'] : count($objects);
+		$countObjects = count($objects);
 		$countPages = ceil($countObjects/$limit);
 		if ($countPages >1) {
 			$browseLink = '';
