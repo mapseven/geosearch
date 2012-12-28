@@ -10,15 +10,15 @@
 			<label index="flexform.sheets.general.template">Template</label>
 			<label index="flexform.sheets.general.css">CSS</label>
 			<label index="flexform.sheets.general.startingpoint">Startingpoint</label>
-			<label index="flexform.sheets.form.title">Search</label>			
-			<label index="flexform.sheets.form.zipComplete">Force complete Postalcode</label>			
+			<label index="flexform.sheets.form.title">Search</label>
+			<label index="flexform.sheets.form.zipComplete">Force complete Postalcode</label>
 			<label index="flexform.sheets.form.countries">Countries</label>
 			<label index="flexform.sheets.form.maxRadius">max. Radius</label>
 			<label index="flexform.sheets.form.unit">Unit</label>
 			<label index="flexform.sheets.form.unit.km">km</label>
-			<label index="flexform.sheets.form.unit.miles">Miles</label>	
-			<label index="flexform.sheets.list.title">List</label>						
-			<label index="flexform.sheets.list.limit">Hits per Page</label>	
+			<label index="flexform.sheets.form.unit.miles">Miles</label>
+			<label index="flexform.sheets.list.title">List</label>
+			<label index="flexform.sheets.list.limit">Hits per Page</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="flexform.sheets.general.title">Allgemeines</label>
@@ -26,13 +26,13 @@
 			<label index="flexform.sheets.general.css">CSS</label>
 			<label index="flexform.sheets.general.startingpoint">Startingpoint</label>
 			<label index="flexform.sheets.form.title">Suche</label>
-			<label index="flexform.sheets.form.zipComplete">Eindeutige PLZ erzwingen</label>			
-			<label index="flexform.sheets.form.countries">Länder</label>			
+			<label index="flexform.sheets.form.zipComplete">Eindeutige PLZ erzwingen</label>
+			<label index="flexform.sheets.form.countries">Länder</label>
 			<label index="flexform.sheets.form.maxRadius">max. Radius</label>
 			<label index="flexform.sheets.form.unit">Längeneinheit</label>
 			<label index="flexform.sheets.form.unit.km">km</label>
 			<label index="flexform.sheets.form.unit.miles">Meilen</label>
-			<label index="flexform.sheets.list.title">Listenansicht</label>			
+			<label index="flexform.sheets.list.title">Listenansicht</label>
 			<label index="flexform.sheets.list.limit">Treffer pro Seite</label>
 		</languageKey>
 	</data>

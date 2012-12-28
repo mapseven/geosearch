@@ -17,7 +17,7 @@
 			<label index="tx_geosearch_objects.fax">Fax</label>
 			<label index="tx_geosearch_objects.email">Email</label>
 			<label index="tx_geosearch_objects.www">Website</label>
-			<label index="tt_content.list_type_pi1">Search in Proximity</label>		
+			<label index="tt_content.list_type_pi1">Search in Proximity</label>
 		</languageKey>
 		<languageKey index="de" type="array">
 			<label index="tx_geosearch_objects">Objekte</label>
@@ -31,7 +31,7 @@
 			<label index="tx_geosearch_objects.fax">Fax</label>
 			<label index="tx_geosearch_objects.email">Email</label>
 			<label index="tx_geosearch_objects.www">Website</label>
-			<label index="tt_content.list_type_pi1">Umkreissuche</label>	
+			<label index="tt_content.list_type_pi1">Umkreissuche</label>
 		</languageKey>
 	</data>
 </T3locallang>
